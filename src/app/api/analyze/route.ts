@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import { hf } from '@/utils/hf';
 import { genAI } from '@/utils/gemini';
+import { ArticleSuggestion } from "@/components/Result";
 
 const NEWS_API_KEY = process.env.NEWS_API_KEY;
 
@@ -84,7 +85,7 @@ async function fetchRelatedArticles(topics: string[], excludeDomain: string) {
         if (response.status === 200 && response.data?.articles) {
             // Filter out articles from the same domain as the original
             const filteredArticles = response.data.articles
-                .filter((article: any) => {
+                .filter((article: ArticleSuggestion) => {
                     if (!article.url) return false;
                     try {
                         const articleDomain = new URL(article.url).hostname;
@@ -94,10 +95,10 @@ async function fetchRelatedArticles(topics: string[], excludeDomain: string) {
                     }
                 })
                 .slice(0, 5) // Limit to 4 articles
-                .map((article: any) => ({
+                .map((article: ArticleSuggestion) => ({
                     title: article.title,
                     url: article.url,
-                    source: article.source?.name || "Unknown"
+                    source: article.source || "Unknown"
                 }));
                 
             return filteredArticles;
@@ -125,8 +126,12 @@ export async function POST(req: Request) {
     if (url) {
         try {
             domain = new URL(url).hostname || "";
-        } catch (error) {
-            console.error("Invalid URL:", url);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error(`Invalid URL:`, error.message);
+            } else {
+                console.error(`Invalid URL:`, error);
+            }
             return NextResponse.json(
                 { error: "Invalid URL." },
                 { status: 400 }
@@ -181,11 +186,15 @@ export async function POST(req: Request) {
         ...scores,
         suggestedArticles
     });
-  } catch (error: any) {
-    console.error("Error verifying news:", error);
-    return NextResponse.json(
-      { error: "Internal server error", details: error.message },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error(`Error verifying news:`, error.message);
+        } else {
+            console.error(`Error verifying news:`, error);
+        }
+        return NextResponse.json(
+            { error: `Error verifying news` },
+            { status: 400 }
+        );
   }
 }

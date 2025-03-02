@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { Search, Shield, Check, Info, Link, FileText, ArrowRight, RotateCcw } from 'lucide-react';
+import React from 'react';
+import { Search, Shield, Check, Info, Link, FileText, ArrowRight } from 'lucide-react';
 import { ScoreCard } from '@/components/ScoreCard';
 import axios from 'axios'; 
 import * as stopword from 'stopword';
@@ -70,7 +71,7 @@ export default function Home() {
     }
   }, [isSubmitting]);
 
-  const preprocessText = async (text) => {  
+  const preprocessText = async (text: string) => {  
     // Remove special characters & extra spaces  
     text = (text || "").replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, " ").trim();
 
@@ -86,7 +87,7 @@ export default function Home() {
     return words.join(" ");  
   }  
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
@@ -127,7 +128,18 @@ export default function Home() {
 
     } catch (err) {
       console.log("error", err);
-      setError(err.response?.data?.error || err.message || "Failed to analyze article.");
+    
+      // Check if `err` is an `Error` object
+      if (err instanceof Error) {
+        const customError = err as { response?: { data?: { error?: string } } };
+        setError(
+          customError.response?.data?.error || err.message || "Failed to analyze article."
+        );
+      } else {
+        // For non-Error objects, provide a fallback message
+        setError("Failed to analyze article.");
+      }   
+
       setIsSubmitting(false);
     }
   };
@@ -319,7 +331,7 @@ export default function Home() {
                         onChange={(e) => setInputValue(e.target.value)}
                         required
                         rows={3}
-                        className="block w-full px-5 py-3 text-gray-600 rounded-md shadow-sm border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-5 py-3 text-gray-600 rounded-md shadow-sm border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                       />
                     </>
                   )}
@@ -328,7 +340,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="block w-full py-3 px-5 rounded-md shadow bg-blue-600 text-white font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-75 flex items-center justify-center"
+                    className="w-full py-3 px-5 rounded-md shadow bg-blue-600 text-white font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-75 flex items-center justify-center"
                   >
                     {isSubmitting ? (
                       <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -359,7 +371,7 @@ export default function Home() {
                   <Search className="h-6 w-6 text-blue-600" />
                 </div>
                 <h3 className="text-lg font-medium text-gray-900 mb-2">Submit Content</h3>
-                <p className="text-gray-600">Paste a URL or text from any news article you'd like to verify.</p>
+                <p className="text-gray-600">Paste a URL or text from any news article you&apos;d like to verify.</p>
               </div>
               
               <div className="text-center">

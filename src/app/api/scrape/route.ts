@@ -26,10 +26,15 @@ export async function POST(req: Request) {
     }
     
     return NextResponse.json({ text: articleText }, { status: 200 });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(`Error processing request:`, err.message);
+    } else {
+        console.error(`Error processing request:`, err);
+    }
     return NextResponse.json(
-      { error: "Error processing request", details: err.message },
-      { status: 500 }
+        { error: "Invalid URL." },
+        { status: 400 }
     );
   }
 }
@@ -49,11 +54,17 @@ async function scrapeWithCheerio(url: string) {
     }
     
     return articleText || null;
-  } catch (err: any) {
-    console.error("Cheerio failed:", err.message);
-    return null;
-  }
-}
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("Cheerio failed:", err.message);
+    } else {
+        console.error("Cheerio failed:", err);
+    }
+    return NextResponse.json(
+        { error: "Cheerio failed:" },
+        { status: 400 }
+    );
+}}
 
 // 🔹 2️⃣ Puppeteer for JavaScript-heavy sites
 async function scrapeWithPuppeteer(url: string) {
@@ -70,8 +81,15 @@ async function scrapeWithPuppeteer(url: string) {
     await browser.close();
     
     return articleText.trim() || null;
-  } catch (err: any) {
-    console.error("Puppeteer failed:", err.message);
-    return null;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("Puppeteer failed:", err.message);
+    } else {
+        console.error("Puppeteer failed:", err);
+    }
+    return NextResponse.json(
+        { error: "Puppeteer failed:" },
+        { status: 400 }
+    );
   }
 }

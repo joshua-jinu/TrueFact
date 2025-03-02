@@ -3,7 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { ScoreCard } from "./ScoreCard";
 
-interface ResultPageProps {
+export interface ResultPageProps {
   overall: string;
   factual_accuracy: number;
   source_reliability: number;
@@ -16,7 +16,7 @@ interface ResultPageProps {
   suggestedArticles?: ArticleSuggestion[];
 }
 
-interface ArticleSuggestion {
+export interface ArticleSuggestion {
   title: string;
   url: string;
   source: string;

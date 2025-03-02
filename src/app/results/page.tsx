@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { Result } from '@/components/Result'; // Import your component
+import Link from 'next/link';
+import { ResultPageProps } from '@/components/Result';
 
 export default function ResultsPage() {
-  const [analysisData, setAnalysisData] = useState(null);
+  const [analysisData, setAnalysisData] = useState<ResultPageProps>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -37,12 +39,12 @@ export default function ResultsPage() {
     return (
       <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
         <div className="text-gray-700 mb-4">{error || 'No analysis data found'}</div>
-        <a 
+        <Link
           href="/" 
           className="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
         >
           Analyze New Article
-        </a>
+        </Link>
       </div>
     );
   }
@@ -57,7 +59,7 @@ export default function ResultsPage() {
     source_comments: analysisData.source_comments || "No source assessment available.",
     bias_comments: analysisData.bias_comments || "No bias assessment available.",
     summary: analysisData.summary || "No summary available.",
-    articleTitle: analysisData.title || "Article Analysis",
+    articleTitle: "Article Analysis",
     suggestedArticles: analysisData.suggestedArticles || []
   };
 
