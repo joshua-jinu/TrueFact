@@ -7,6 +7,9 @@ Combat misinformation and enhance digital literacy with this **AI-powered news v
 
 ![image](https://github.com/user-attachments/assets/fef1e3c0-647a-45ed-ad45-1c774f1a8ff4)
 
+![image](https://github.com/user-attachments/assets/73f85044-7a0a-4456-a5e6-7a70ca25586f)
+
+
 
 ## Features
 
@@ -26,28 +29,6 @@ Combat misinformation and enhance digital literacy with this **AI-powered news v
 - **AI Services:** Gemini API (GPT Flash 2.0) and Hugging Face text summarization
 - **Web Scraping:** Puppeteer & Cheerio for extracting article content, News API to fetch related news articles
 
----
-
-## How It Works
-
-1. **Submit Content:**  
-   Paste a URL or the text of a news article you'd like to verify.
-   
-2. **AI Analysis:**  
-   The AI system conducts deep analysis using machine learning models and cross-references the content with trusted data repositories to identify potential inaccuracies or biases.
-
-3. **Credibility Score:**  
-   Gain objective evaluations based on several factors (e.g., factual accuracy, source reliability, and bias).  
-   Example Ratings:
-   - **Credibility Score:** 7.5/10  
-   - **Factual Accuracy:** 8/10  
-   - **Source Reliability:** 6/10  
-   - **Bias Assessment:** 6/10  
-
-4. **Alternative Sources:**  
-   Access links to other verified sources covering the same news topic for comparison.
-
----
 
 ## Why It Matters
 
