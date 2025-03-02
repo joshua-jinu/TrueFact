@@ -159,8 +159,7 @@ export async function POST(req: Request) {
     }
     
     // Fetch related articles using News API
-    // const suggestedArticles = await fetchRelatedArticles(topics, domain);
-    const suggestedArticles = [];
+    const suggestedArticles = await fetchRelatedArticles(topics, domain);
     
     // Calculate overall score
     let overall = 0;
