@@ -59,7 +59,6 @@ export default function ResultsPage() {
     source_comments: analysisData.source_comments || "No source assessment available.",
     bias_comments: analysisData.bias_comments || "No bias assessment available.",
     summary: analysisData.summary || "No summary available.",
-    articleTitle: "Article Analysis",
     suggestedArticles: analysisData.suggestedArticles || []
   };
 

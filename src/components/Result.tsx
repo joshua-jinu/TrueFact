@@ -12,7 +12,6 @@ export interface ResultPageProps {
   source_comments: string;
   bias_comments: string;
   summary: string;
-  articleTitle?: string;
   suggestedArticles?: ArticleSuggestion[];
 }
 
@@ -31,13 +30,12 @@ export const Result = ({
   source_comments,
   bias_comments,
   summary,
-  articleTitle = "Article Analysis",
   suggestedArticles = []
 }: ResultPageProps) => {
   return (
     <div className="mx-auto py-8 px-6 bg-white min-h-screen text-gray-900">
       
-      <h1 className="text-3xl font-semibold text-gray-900 mb-6 border-b pb-2 border-blue-200">{articleTitle}</h1>
+      <h1 className="text-3xl font-semibold text-gray-900 mb-6 border-b pb-2 border-blue-200">Article Analysis</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-1">

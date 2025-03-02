@@ -2,7 +2,15 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import { hf } from '@/utils/hf';
 import { genAI } from '@/utils/gemini';
-import { ArticleSuggestion } from "@/components/Result";
+
+interface src {
+    name: string;
+}
+interface ArticleSuggestion {
+    title: string;
+    url: string;
+    source: src;
+}
 
 const NEWS_API_KEY = process.env.NEWS_API_KEY;
 
@@ -98,7 +106,7 @@ async function fetchRelatedArticles(topics: string[], excludeDomain: string) {
                 .map((article: ArticleSuggestion) => ({
                     title: article.title,
                     url: article.url,
-                    source: article.source || "Unknown"
+                    source: article.source?.name || "Unknown"
                 }));
                 
             return filteredArticles;
