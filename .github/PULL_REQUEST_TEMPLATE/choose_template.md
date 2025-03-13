@@ -1,1 +1,0 @@
-- [User Story](?template=user_story.md)
