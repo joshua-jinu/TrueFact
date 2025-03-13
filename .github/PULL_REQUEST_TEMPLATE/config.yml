@@ -1,0 +1,4 @@
+template_definitions:
+  - name: user_story
+    about: Template for Jenkins success stories
+    filename: user_story.md
