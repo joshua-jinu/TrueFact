@@ -1,4 +1,92 @@
-template_definitions:
-  - name: user_story
-    about: Template for Jenkins success stories
-    filename: user_story.md
+name: "Submit a Success Story"
+description: "Share your success story and raise a PR to contribute it."
+title: "[Success Story] - <Your Title Here>"
+labels: ["success-story", "contribution"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: "Title"
+      description: "Enter the title of your success story."
+      placeholder: "e.g. How I Built My First Open-Source Project"
+    validations:
+      required: true
+
+  - type: input
+    id: slug
+    attributes:
+      label: "Post Name (Slug)"
+      description: "Enter a URL-friendly name for the story."
+      placeholder: "e.g. my-first-open-source"
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: "Authored By"
+      description: "Your name or username."
+      placeholder: "e.g. John Doe"
+    validations:
+      required: true
+
+  - type: input
+    id: publish_date
+    attributes:
+      label: "Publish Date"
+      description: "Enter the date of publication."
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+
+  - type: input
+    id: tagline
+    attributes:
+      label: "Tag Line"
+      description: "A short, catchy description of the story."
+      placeholder: "e.g. My journey in open source."
+    validations:
+      required: true
+
+  - type: textarea
+    id: metadata
+    attributes:
+      label: "Metadata"
+      description: "Provide relevant metadata (Organization, Industries, etc.)."
+      placeholder: "e.g. Organization: GitHub\nIndustries: Software Development"
+    validations:
+      required: true
+
+  - type: textarea
+    id: testimonial
+    attributes:
+      label: "Testimonial"
+      description: "Share a quote or feedback from your experience."
+      placeholder: "e.g. 'This journey changed my life!' - John Doe"
+
+  - type: textarea
+    id: map_data
+    attributes:
+      label: "Map Data (Optional)"
+      description: "Provide GeoJSON data or author location if relevant."
+      placeholder: "e.g. { 'type': 'FeatureCollection', 'features': [...] }"
+
+  - type: textarea
+    id: body
+    attributes:
+      label: "Body"
+      description: "Write the full content of your success story."
+      placeholder: "Start writing your story here..."
+    validations:
+      required: true
+
+  - type: input
+    id: image
+    attributes:
+      label: "Upload Image"
+      description: "Provide a link to an image or attach one in the PR."
+      placeholder: "e.g. https://example.com/image.jpg"
+
+  - type: markdown
+    attributes:
+      value: "**Next Steps:** After submitting this issue, create a PR with your formatted success story. Follow the PR guidelines to add your story at `/src/user-story/[story-title]/index.yaml` and include your images in the same directory."
